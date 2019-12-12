@@ -13,3 +13,10 @@ consul:
     maxRetry: 5
     retryInterval: 5s
     deregisterCriticalServiceAfter: 60m
+database:
+  type: postgres
+  username: admin
+  password: admin123456
+  database: user
+  synchronize: true
+  logging: false
