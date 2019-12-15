@@ -5,9 +5,38 @@ import { ConfigService } from 'src/modules/config/services/config.service'
 import { ConsulService } from 'src/modules/consul/services/consul.service'
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { join } from 'path'
+import { User } from 'src/entities/user.entity'
+import { BaseEntity, EntitySchema } from 'typeorm'
+import { readdirSync } from 'fs'
 
 export class DatabaseService {
-  constructor(private config: ConfigService, private consul: ConsulService) {}
+  private entities = []
+
+  constructor(
+    private config: ConfigService,
+    private consul: ConsulService,
+    entityPath: string
+  ) {
+    DatabaseService.getEntities(entityPath).then(
+      entities => (this.entities = entities)
+    )
+  }
+
+  public static async getEntities(entityPath): Promise<any[]> {
+    if (!entityPath) {
+      return
+    }
+
+    const entities = await Promise.all(
+      readdirSync(entityPath)
+        .filter(path => /^.*?\.entity\.(ts|js)$/.test(path))
+        .map(async path => import(join(entityPath, path)))
+    )
+      .then(entities => entities.map(entity => Object.values(entity)))
+      .then(entities => entities.flat())
+
+    return entities
+  }
 
   /**
    * 获取数据库配置
@@ -44,9 +73,7 @@ export class DatabaseService {
       username: this.config.get('database.username'),
       password: this.config.get('database.password'),
       database: this.config.get('database.database'),
-      entities: [
-        join(__dirname, '..', '..', '..', 'entites/**/*.entity{.ts,.js}')
-      ],
+      entities: this.entities,
       synchronize: true
     }
   }

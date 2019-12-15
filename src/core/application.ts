@@ -1,6 +1,10 @@
 import { INestApplicationContext } from '@nestjs/common'
 import { STATIC_CONTEXT } from '@nestjs/core/injector/constants'
-import { APP_CONFIG_PROVIDER, APP_CONSUL_PROVIDER } from './constants'
+import {
+  APP_CONFIG_PROVIDER,
+  APP_CONSUL_PROVIDER,
+  APP_DATABASE_PROVIDER
+} from './constants'
 
 // 依赖加载顺序
 export class Application {

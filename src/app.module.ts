@@ -6,6 +6,7 @@ import { join } from 'path'
 import { ConsulModule } from './modules/consul/consul.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DatabaseModule } from './modules/database/database.module'
+import { User } from './entities/user.entity'
 @Module({
   imports: [
     ConfigModule.forRoot(join(__dirname, '..', 'config.yml')),
