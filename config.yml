@@ -17,6 +17,6 @@ database:
   type: postgres
   username: admin
   password: admin123456
-  database: user
+  database: user_db
   synchronize: true
   logging: false

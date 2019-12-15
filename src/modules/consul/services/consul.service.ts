@@ -3,6 +3,7 @@ import { ConfigService } from 'src/modules/config/services/config.service'
 import { getIPAddress } from 'src/common/utils/os.util'
 import { MD5 } from 'crypto-js'
 import { getCurrentEnv } from 'src/common/utils'
+import { isNullOrUndefined } from 'util'
 
 export class ConsulService {
   public readonly consul: Consul.Consul
@@ -91,5 +92,29 @@ export class ConsulService {
   public register() {
     const registerOption = this.generateRegisterOption()
     return this.consul.agent.service.register(registerOption)
+  }
+
+  /**
+   * 查询服务信息
+   * @param serviceName
+   * @param serviceTags
+   */
+  public findServices(
+    serviceName = undefined,
+    serviceTags = []
+  ): Consul.Thenable<any> {
+    return this.consul.agent.services().then(services => {
+      // 通过Tag查找Service
+      const findServiceByTag = service =>
+        serviceTags.every(tag => service.Tags.includes(tag))
+
+      // 通过Name查找Service
+      const findServiceByName = service =>
+        isNullOrUndefined(serviceName) || service.Service === serviceName
+
+      return Object.values(services).find(
+        service => findServiceByTag(service) && findServiceByName(service)
+      )
+    })
   }
 }
