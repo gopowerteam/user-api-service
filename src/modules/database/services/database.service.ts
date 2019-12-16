@@ -5,8 +5,6 @@ import { ConfigService } from 'src/modules/config/services/config.service'
 import { ConsulService } from 'src/modules/consul/services/consul.service'
 import { TypeOrmModuleOptions } from '@nestjs/typeorm'
 import { join } from 'path'
-import { User } from 'src/entities/user.entity'
-import { BaseEntity, EntitySchema } from 'typeorm'
 import { readdirSync } from 'fs'
 
 export class DatabaseService {

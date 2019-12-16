@@ -9,7 +9,6 @@ import {
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { ConsulService } from '../consul/services/consul.service'
 import { DatabaseService } from './services/database.service'
-import { User } from 'src/entities/user.entity'
 import { join } from 'path'
 
 @Global()

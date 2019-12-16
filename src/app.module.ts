@@ -6,7 +6,7 @@ import { join } from 'path'
 import { ConsulModule } from './modules/consul/consul.module'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DatabaseModule } from './modules/database/database.module'
-import { User } from './entities/user.entity'
+import { AuthService } from './services/auth.service'
 @Module({
   imports: [
     ConfigModule.forRoot(join(__dirname, '..', 'config.yml')),
@@ -14,6 +14,6 @@ import { User } from './entities/user.entity'
     DatabaseModule.forRoot()
   ],
   controllers: [AuthController],
-  providers: [AppService]
+  providers: [AuthService]
 })
 export class AppModule {}
