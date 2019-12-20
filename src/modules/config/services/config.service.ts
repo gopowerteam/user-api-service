@@ -30,12 +30,12 @@ export class ConfigService {
     // 环境值不存在直接返回本地值
     if (isNullOrUndefined(env)) {
       return value
-    } 
+    }
 
     // 环境值存在对环境值进行转换
-    if(value instanceof Array){
+    if (value instanceof Array) {
       return env.split(',')
-    }else{
+    } else {
       return env
     }
   }

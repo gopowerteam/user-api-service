@@ -1,8 +1,7 @@
 import * as Consul from 'consul'
-import { ConfigService } from 'src/modules/config/services/config.service'
-import { getIPAddress } from 'src/common/utils/os.util'
+import { ConfigService } from '../../../modules/config/services/config.service'
 import { MD5 } from 'crypto-js'
-import { getCurrentEnv } from 'src/common/utils'
+import { getCurrentEnv, getIPAddress } from '../../../common/utils'
 import { isNullOrUndefined } from 'util'
 
 export class ConsulService {

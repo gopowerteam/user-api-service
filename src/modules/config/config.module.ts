@@ -1,6 +1,6 @@
-import { Module, DynamicModule, Global } from '@nestjs/common';
-import { ConfigService } from './services/config.service';
-import { APP_CONFIG_PROVIDER } from 'src/core/constants';
+import { Module, DynamicModule, Global } from '@nestjs/common'
+import { ConfigService } from './services/config.service'
+import { APP_CONFIG_PROVIDER } from 'src/core/constants'
 
 @Global()
 @Module({})
@@ -11,12 +11,12 @@ export class ConfigModule {
         provide: APP_CONFIG_PROVIDER,
         useFactory: () => new ConfigService(configFilePath),
       },
-    ];
+    ]
 
     return {
       module: ConfigModule,
       providers,
       exports: providers,
-    };
+    }
   }
 }
